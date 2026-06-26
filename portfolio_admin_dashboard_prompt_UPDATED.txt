@@ -1,0 +1,860 @@
+FINAL UPDATED PROMPT — PORTFOLIO WEBSITE WITH COMPLETE HIDDEN ADMIN DASHBOARD
+
+Create a complete premium single-file portfolio website based on my existing portfolio file:
+
+final_single_file.html
+
+The current portfolio brand is:
+
+Haris Aslam — Horizon | Portfolio
+
+Current style:
+- Light premium glassmorphism theme
+- Soft white/light background
+- Purple, blue, teal accent colors
+- Rounded cards
+- Smooth shadows
+- Animated blobs
+- Modern typography with Inter and Space Grotesk
+- Smooth reveal animations
+- Mobile responsive layout
+- Clean professional portfolio look
+
+IMPORTANT:
+Do not destroy my existing design.
+Upgrade my existing portfolio and make every section editable from a hidden admin dashboard.
+The dashboard must control all website content, theme, media, links, animations, cards, buttons, sections, and contact form data without manual code editing after setup.
+
+Everything must be inside one file only:
+
+index.html
+
+Use only:
+
+<style>
+/* all CSS here */
+</style>
+
+<script type="module">
+/* all JavaScript here */
+</script>
+
+Do not create separate CSS, JS, backend, JSON, or component files.
+
+============================================================
+1. FIREBASE SETUP
+============================================================
+
+Use this Firebase config in the code:
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCXGOewMBdnFwBoMmakuPBOj9Ozhrg5CZw",
+  authDomain: "portfolio-2c39e.firebaseapp.com",
+  projectId: "portfolio-2c39e",
+  storageBucket: "portfolio-2c39e.firebasestorage.app",
+  messagingSenderId: "932149474919",
+  appId: "1:932149474919:web:235a31bc7c7654befa46c2",
+  databaseURL: "https://portfolio-2c39e-default-rtdb.asia-southeast1.firebasedatabase.app"
+};
+
+Use Firebase Authentication for secure admin login.
+Use Firebase Realtime Database for live data sync.
+
+Add this placeholder near the Firebase config:
+
+const ADMIN_UID = "PASTE_YOUR_ADMIN_UID_HERE";
+
+Only this UID can open and use the dashboard.
+Do not hardcode admin password in frontend.
+
+If Firebase fails or config/UID is missing, use localStorage demo mode.
+Show admin sync status:
+
+Firebase Sync Active
+or
+Demo Mode Active
+
+============================================================
+2. SECURITY RULES COMMENT
+============================================================
+
+Add Realtime Database security rules inside code comments so I can copy/paste them into Firebase:
+
+{
+  "rules": {
+    "portfolio": {
+      ".read": true,
+      ".write": "auth != null && auth.uid === 'PASTE_YOUR_ADMIN_UID_HERE'"
+    }
+  }
+}
+
+Also add optional stricter rules for contact messages:
+
+{
+  "rules": {
+    "portfolio": {
+      ".read": true,
+      "messages": {
+        ".read": "auth != null && auth.uid === 'PASTE_YOUR_ADMIN_UID_HERE'",
+        ".write": true
+      },
+      "$other": {
+        ".write": "auth != null && auth.uid === 'PASTE_YOUR_ADMIN_UID_HERE'"
+      }
+    }
+  }
+}
+
+============================================================
+3. DATABASE STRUCTURE
+============================================================
+
+Use this Realtime Database structure:
+
+portfolio/
+  settings/
+  theme/
+  navigation/
+  hero/
+  about/
+  education/
+  skills/
+  services/
+  projects/
+  experience/
+  clients/
+  contact/
+  socialLinks/
+  footer/
+  seo/
+  animations/
+  messages/
+  media/
+  activityLogs/
+
+Every item should have:
+
+id
+title/name
+sortOrder
+visible true/false
+createdAt
+updatedAt
+
+Project object:
+
+{
+  id: "",
+  title: "",
+  category: "",
+  status: "Live",
+  shortDescription: "",
+  fullDescription: "",
+  thumbnail: "",
+  mediaType: "image",
+  iframePreviewUrl: "",
+  liveLink: "",
+  githubLink: "",
+  technologies: [],
+  featured: false,
+  visible: true,
+  sortOrder: 0,
+  createdAt: "",
+  updatedAt: ""
+}
+
+============================================================
+4. FIRST-RUN DATA SEEDING
+============================================================
+
+On first load, if Firebase portfolio data is empty, automatically seed default content from my current website.
+
+Seed the current sections:
+- Navbar links: Home, About, Skills, Projects, Experience, Contact
+- Hero name: Haris Aslam
+- Alias: Horizon
+- Badge: Available for Work
+- Typing phrases: Pharm-D Student, Vibe Coder, Creative Technologist, Graphic Designer, AI Enthusiast, Media Cell Head
+- Hero description
+- Hero profile image URL
+- Hero stats: Clients, Projects, Countries
+- About cards: The Student, The Tech Enthusiast, The Creative
+- Education timeline: Matriculation, FSC Pre-Medical, Pharm-D
+- Skills: Graphic Designing, Web Development, Social Media Management, Generative AI
+- Projects:
+  1. Blood Donation App
+  2. Eid Mubarak Web Project
+  3. Vibe Coding Project
+  4. Winning Poster Presentation
+- Experience/Roles:
+  1. Media Cell Head
+  2. Freelance Designer & Developer
+  3. Creative Web Developer
+- Trusted by clients strip
+- Contact section
+- Footer
+
+After seeding, future edits must come from Firebase/dashboard, not hardcoded content.
+
+============================================================
+5. HIDDEN ADMIN ACCESS
+============================================================
+
+Do not show any visible admin button or admin link.
+
+Admin login should open secretly using BOTH methods:
+
+Method 1:
+Click the website logo 5 times quickly within 2 seconds.
+
+Method 2:
+Type this secret keyword anywhere on the website:
+
+horizonadmin
+
+The typed keyword must not appear on screen.
+
+When unlocked:
+- Show a premium unlock animation
+- Use glow ripple / glass panel reveal
+- Then open admin login modal
+
+============================================================
+6. ADMIN LOGIN MODAL
+============================================================
+
+Create a beautiful hidden admin login modal with:
+
+- Email field
+- Password field
+- Show/hide password button
+- Login button
+- Loading animation
+- Error message area
+- Success animation
+- Access denied state
+- Close button
+- Forgot password button using Firebase sendPasswordResetEmail
+- Remember session support through Firebase Auth persistence
+
+After successful Firebase login:
+- Check auth.currentUser.uid === ADMIN_UID
+- If UID matches, open dashboard
+- If UID does not match, show Access Denied and sign out immediately
+
+============================================================
+7. DASHBOARD NAME AND DESIGN
+============================================================
+
+Dashboard name:
+
+Horizon Creator Studio
+
+Dashboard style:
+- Premium hidden creative control room
+- Modern sidebar
+- Top admin bar
+- Glassmorphism cards
+- Purple/blue/teal glow accents
+- Smooth animations
+- Responsive mobile layout
+- Toast notifications
+- Delete confirmation modal
+- Loading states
+- Empty states
+- Search and filters
+- Drag/reorder controls where useful
+- Beautiful form design
+- Mobile bottom navigation or collapsible sidebar for dashboard
+- Light/dark dashboard mode
+- Save, reset, preview, duplicate, delete buttons
+- Activity log after each admin action
+
+============================================================
+8. GLOBAL DASHBOARD REQUIREMENT
+============================================================
+
+Every public section must be manageable from dashboard.
+
+For every section, admin should be able to:
+- Add item
+- Edit item
+- Delete item
+- Hide/show item
+- Reorder item
+- Change icon
+- Change image URL
+- Change text
+- Change button/link
+- Change badge
+- Change colors if relevant
+- See live preview before saving
+
+No manual code editing should be required after setup.
+
+============================================================
+9. DASHBOARD SECTIONS
+============================================================
+
+A. Dashboard Overview
+
+Show stats:
+- Total projects
+- Featured projects
+- Live projects
+- Draft projects
+- In Progress projects
+- Total skills
+- Total messages
+- Visible sections
+- Recent updates
+- Firebase status
+- Last synced time
+
+Show recent activity:
+- Project added
+- Project edited
+- Project deleted
+- Settings changed
+- Contact message received
+
+B. Site Structure Manager
+
+Manage public sections:
+- Navbar
+- Hero
+- About
+- Education
+- Skills
+- Services
+- Featured Projects
+- All Projects
+- Experience
+- Trusted by Clients
+- Contact
+- Footer
+
+For each section:
+- Show/hide section
+- Rename section title
+- Change section tag
+- Change section subtitle
+- Reorder sections where possible
+- Edit anchor/id if safe
+- Reset section to default
+
+C. Navigation Manager
+
+Admin can update:
+- Logo text
+- Logo dot visibility/color
+- Navbar links
+- Link labels
+- Link targets
+- Navbar CTA text
+- Navbar CTA target
+- Sticky navbar on/off
+- Mobile menu labels
+
+D. Hero Manager
+
+Admin can update:
+- Availability badge text
+- Badge dot color
+- Owner first name
+- Owner last name
+- Accent word
+- Alias text
+- Typing phrases add/edit/delete/reorder
+- Hero headline
+- Hero tagline/static prefix
+- Hero description
+- Profile image URL
+- Orbit icons add/edit/delete
+- Orbit animation speed
+- Hero buttons text/icon/link
+- Stats labels/numbers/suffixes
+- Scroll indicator text
+- Hero background gradient
+- Hero image border/glow
+
+E. About Manager
+
+Admin can update:
+- About section tag/title/subtitle
+- About cards add/edit/delete/reorder
+- Card title
+- Card description
+- Card Font Awesome icon class
+- Icon color/gradient
+- Card visibility
+- About text blocks
+
+F. Education Timeline Manager
+
+Admin can update:
+- Timeline heading
+- Education item title
+- Year
+- Institute
+- Description
+- Badge text
+- Active/current toggle
+- Marker pulse on/off
+- Add/edit/delete/reorder education entries
+
+G. Skills Manager
+
+Admin can update:
+- Skill title
+- Description
+- Font Awesome icon
+- Icon gradient/class
+- Tags
+- Visibility
+- Sort order
+- Add/edit/delete/reorder skills
+
+H. Services Manager
+
+Add optional services section matching portfolio style.
+
+Admin can update:
+- Service title
+- Description
+- Icon
+- Price/rate optional
+- Button text/link
+- Category
+- Visibility
+- Sort order
+
+I. Projects Manager
+
+Admin can:
+- Add project
+- Edit project
+- Delete project
+- Duplicate project
+- Hide/show project
+- Mark featured
+- Reorder projects
+- Search projects
+- Filter by category/status/featured
+- Preview project card before saving
+
+Project fields:
+- Project title
+- Category
+- Status: Live, Draft, In Progress, Award, Archived
+- Short description
+- Full description
+- Thumbnail image URL
+- Media type: image / iframe preview / video thumbnail
+- Iframe preview URL
+- Project live link
+- GitHub/source link
+- Technologies used as comma-separated tags
+- Featured toggle
+- Visible toggle
+- Sort order
+- Button text
+- Custom status badge color
+- CreatedAt/UpdatedAt timestamps
+
+Public project card must match existing style:
+- Large image/preview on top
+- Category badge like Creative Web
+- Status badge like Live
+- Project title
+- Short description
+- Technology tags
+- View Project button with arrow
+- Rounded card
+- Soft shadow
+- Hover overlay
+- Smooth animation
+
+Featured projects should appear in a separate highlighted section.
+All projects should appear in all projects section.
+Project detail modal should show full description, image, technologies, live link, source link.
+
+J. Experience / Roles Manager
+
+Admin can update:
+- Experience section tag/title/subtitle
+- Role title
+- Organization
+- Description
+- Icon
+- Badge text
+- Badge color
+- Highlights list
+- Countries/tags
+- Current role toggle
+- Featured role toggle
+- Add/edit/delete/reorder roles
+
+K. Trusted by Clients Manager
+
+Improve this section visually because current trusted-by-clients strip needs better design.
+
+Admin can update:
+- Section title/label
+- Client count
+- Countries list
+- Country name
+- Country flag emoji or image
+- Client logo/name
+- Testimonial text
+- Rating stars
+- Show as animated marquee / grid / cards
+- Animation speed
+- Visibility
+- Sort order
+
+Public design requirement:
+- Premium aligned layout
+- Real flag emojis or flag-style badges
+- Better font alignment
+- Smooth scrolling/marquee animation optional
+- Clean spacing on mobile
+- No broken or ugly flag boxes
+- Purple/teal glow card style
+
+L. Contact Settings Manager
+
+Admin can update:
+- Contact section tag/title/subtitle
+- Contact heading
+- Contact description
+- WhatsApp number
+- WhatsApp display text
+- WhatsApp link
+- Email address
+- Email display text
+- Location
+- Contact form fields
+- Submit button text
+- Success message
+- Error message
+- Enable/disable contact form
+- Enable Firebase message saving
+- Enable mailto fallback
+- Enable WhatsApp prefilled message fallback
+
+Contact form must work:
+- Save contact messages to Firebase under portfolio/messages
+- Show loading state while submitting
+- Show success toast
+- Show error toast if Firebase fails
+- In demo mode, save messages to localStorage
+- Admin can view messages inside dashboard
+- Admin can mark messages as read/unread
+- Admin can delete messages
+- Admin can copy email/phone/message
+- Admin can open WhatsApp reply link
+- Admin can open email reply link
+
+M. Social Links Manager
+
+Admin can update:
+- Instagram
+- Facebook
+- LinkedIn
+- GitHub
+- YouTube
+- WhatsApp
+- Email
+- Website
+- Any custom social link
+- Icon class
+- Visibility
+- Sort order
+
+N. Footer Manager
+
+Admin can update:
+- Footer brand text
+- Footer description
+- Footer links
+- Copyright text
+- Social icons
+- Footer background color
+- Footer visibility
+
+O. Theme Settings
+
+Admin can update:
+- Primary color
+- Primary light color
+- Primary dark color
+- Accent color
+- Accent light color
+- Rose color
+- Background color
+- Alternate background color
+- Surface color
+- Text primary
+- Text secondary
+- Text muted
+- Border color
+- Button text
+- Button radius
+- Card radius
+- Shadow intensity
+- Glow intensity
+- Light/dark mode
+- Gradient presets
+- Font family
+- Section spacing
+- Card spacing
+
+Theme changes must update public website instantly using CSS variables.
+
+P. Animation Settings
+
+Admin can update:
+- Enable/disable reveal animations
+- Enable/disable animated blobs
+- Enable/disable typing effect
+- Typing speed
+- Deleting speed
+- Pause duration
+- Enable/disable count-up stats
+- Enable/disable orbit animation
+- Orbit speed
+- Blob opacity
+- Blob blur
+- Scroll behavior smooth/normal
+
+Q. Media Library
+
+Admin can:
+- Save commonly used image URLs
+- Add image title/alt text
+- Copy image URL
+- Delete media entry
+- Use media URL in projects/hero/profile sections
+- Preview images
+
+No Firebase Storage upload is required unless simple URL-based media library is easier.
+Image URL management is enough.
+
+R. SEO Settings
+
+Admin can update:
+- Page title
+- Meta description
+- Meta keywords
+- Open Graph title
+- Open Graph description
+- Open Graph image URL
+- Favicon URL
+- Author name
+
+S. Backup / Import / Export
+
+Admin can:
+- Export portfolio JSON
+- Import portfolio JSON
+- Reset to default seed data
+- Clear demo localStorage data
+- Show confirmation before destructive actions
+
+============================================================
+10. PUBLIC PORTFOLIO WEBSITE REQUIREMENTS
+============================================================
+
+Public portfolio must include:
+- Navbar
+- Hero section
+- About section
+- Education timeline
+- Skills section
+- Optional services section
+- Featured projects section
+- All projects section
+- Project detail modal
+- Experience/Roles section
+- Trusted by Clients section
+- Contact section
+- Footer
+- Back to top button
+
+All public content must load from Firebase Realtime Database when Firebase is active.
+If Firebase is not active, load from localStorage/default seed data.
+
+Public portfolio must stay clean and professional.
+Normal visitors should never see admin dashboard, admin buttons, dashboard route, or admin hints.
+
+============================================================
+11. PROJECT DETAIL MODAL
+============================================================
+
+When user clicks View Project:
+- Open beautiful modal
+- Show thumbnail/preview
+- Title
+- Category
+- Status
+- Full description
+- Technologies
+- Live link
+- GitHub/source link if available
+- Close button
+- Mobile responsive modal
+
+If project has liveLink, View Project can also open link in new tab depending on button type.
+Add option in admin to choose:
+- Open detail modal
+- Open live link directly
+- Show both
+
+============================================================
+12. EMAIL / CONTACT FORM REQUIREMENT
+============================================================
+
+Make the contact form functional without external backend.
+
+On submit:
+- Validate name, email, subject, message
+- Save message to Firebase:
+  portfolio/messages/{messageId}
+- Fields:
+  id
+  name
+  email
+  subject
+  message
+  status: unread
+  createdAt
+  userAgent optional
+- Show loading spinner
+- Show success message
+- Reset form after success
+
+If Firebase write fails:
+- Save to localStorage demo messages
+- Show message: Message saved in demo mode. Please also contact through WhatsApp/email.
+
+Admin dashboard should have Messages Inbox:
+- Search messages
+- Filter unread/read
+- Read full message
+- Mark as read
+- Delete message
+- Copy message
+- Reply via mailto
+- Reply via WhatsApp if phone exists
+
+============================================================
+13. ADMIN UX DETAILS
+============================================================
+
+Dashboard forms must:
+- Have clear labels
+- Use placeholders
+- Use validation
+- Use save/cancel buttons
+- Show loading state
+- Show toast after success/error
+- Show unsaved changes warning
+- Provide live preview card where helpful
+- Have responsive mobile layout
+- Avoid console errors
+
+Use small utility functions:
+- generateId()
+- safeText()
+- parseTags()
+- formatDate()
+- showToast()
+- confirmDelete()
+- logActivity()
+- saveData()
+- readData()
+- subscribeData()
+
+============================================================
+14. FIREBASE REALTIME SYNC
+============================================================
+
+Use Firebase Realtime Database live listeners:
+- onValue(ref(db, "portfolio/settings"))
+- onValue(ref(db, "portfolio/theme"))
+- onValue(ref(db, "portfolio/projects"))
+- onValue(ref(db, "portfolio/skills"))
+- onValue(ref(db, "portfolio/messages")) for admin only
+- etc.
+
+When admin changes data:
+- Use set(), update(), remove(), push()
+- Public UI updates instantly without refresh
+
+============================================================
+15. FALLBACK / DEMO MODE
+============================================================
+
+If Firebase is unavailable:
+- Use localStorage with same data structure
+- Dashboard still works locally
+- Show Demo Mode Active notice
+- Allow add/edit/delete locally
+- Warn that data is saved only in this browser
+
+============================================================
+16. RESPONSIVE REQUIREMENTS
+============================================================
+
+Website and dashboard must work perfectly on:
+- Mobile
+- Tablet
+- Desktop
+
+Mobile dashboard:
+- Sidebar collapses
+- Forms remain usable
+- Tables convert into cards
+- Action buttons do not overflow
+- Modals fit screen
+
+============================================================
+17. ACCESSIBILITY AND QUALITY
+============================================================
+
+Add:
+- aria-labels where needed
+- proper button types
+- alt text from admin data
+- focus states
+- keyboard close with Escape for modals
+- no console errors
+- no broken links if link field is empty
+- safe rendering to prevent HTML injection
+
+============================================================
+18. FINAL OUTPUT REQUIRED
+============================================================
+
+Generate the complete working code for:
+
+index.html
+
+After the code, briefly explain:
+
+1. Where to paste ADMIN_UID
+2. How to create Firebase Auth admin user
+3. How to get admin UID
+4. Where to paste Firebase Realtime Database rules
+5. How to test hidden admin login:
+   - click logo 5 times
+   - type horizonadmin
+6. How contact messages work
+7. How demo mode works
+
+Make the website premium, modern, responsive, Firebase synced, hidden-admin protected, and ready to deploy on Netlify.
+
+Most important:
+Every visible website section and every important text/image/link/color should be editable from Horizon Creator Studio.
